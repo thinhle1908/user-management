@@ -63,6 +63,10 @@
 
                                     <input type="password" class="form-control form-control-user" id="exampleInputPassword" placeholder="Confirm_Password" name="password_confirm">
                                 </div>
+                                <div class="form-group mt-5">
+                                            {!! NoCaptcha::renderJs() !!}
+                                            {!! NoCaptcha::display() !!}
+                                        </div>
                                 <button type="submit" href="login.html" class="btn btn-primary btn-user btn-block">
                                     Register Account
                                 </button>

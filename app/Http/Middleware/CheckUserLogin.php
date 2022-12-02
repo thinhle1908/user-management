@@ -6,7 +6,7 @@ use Closure;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
-class CheckAdminLogin
+class CheckUserLogin
 {
     /**
      * Handle an incoming request.
@@ -17,10 +17,11 @@ class CheckAdminLogin
      */
     public function handle(Request $request, Closure $next)
     {
-        
         if (Auth::check()) {
-            return redirect(route('admin.dashboard.get'));
+             return $next($request);
         }
-        return $next($request);
+       else{
+        return redirect(route('login.get'));
+       }
     }
 }

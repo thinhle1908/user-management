@@ -16,18 +16,12 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
-Route::get('/', function () {
-    return redirect(route('home'));
-});
-Route::get('/profile', function () {
-    return view('welcome');
-})->name('home');
+
 
 //Authentication
 Route::get('/logout', [AuthController::class, 'logout'])->name('logout.get');
-Route::get('/admin/logout', [AuthController::class, 'logout'])->name('admin.logout.get');
 
-//User
+//Check Login
 Route::middleware(['checklogin'])->group(function () {
     Route::get('/login', [AuthController::class, 'getLogin'])->name('login.get');
     Route::get('/login', [AuthController::class, 'getLogin'])->name('login.get');
@@ -40,14 +34,19 @@ Route::middleware(['checklogin'])->group(function () {
     Route::get('/send-code-verify-email', [SendMailController::class, 'sendCodeVerifyEmail']);
 });
 
-//Admin
-Route::prefix('admin')->middleware(['checkadminlogin'])->group(function () {
-    Route::get('/login', [AuthController::class, 'getLogin'])->name('admin.login.get');
+//User after Login
+Route::middleware(['checkuserlogin'])->group(function () {
+    Route::get('/', function () {
+        return redirect(route('home'));
+    });
+    Route::get('/profile', [UserController::class, 'getProfile'])->name('home');
+    Route::post('/profile', [UserController::class, 'saveProfile'])->name('saveProfile');
 });
+//Admin after login
 
 Route::prefix('admin')->middleware(['auth.admin'])->group(function () {
     Route::get('/dashboard', function () {
-        return view('welcome');
+        return view('dashboard');
     })->name('dashboard');
     Route::get('/user-management', [UserController::class, 'getAllUser'])->name('alluser');
     Route::get('/add-user', [UserController::class, 'formAddUser']);

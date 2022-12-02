@@ -18,7 +18,9 @@ return new class extends Migration
             $table->integer('user_id');
             $table->string('first_name');
             $table->string('last_name');
-            $table->string('device_token');
+            $table->string('mobile_phone');
+            $table->string('address');
+            $table->string('country');
         });
     }
 

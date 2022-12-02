@@ -132,6 +132,7 @@ class AuthController extends Controller
             'email' => 'required|email|unique:users',
             'password' => 'required|min:6|same:password_confirm',
             'password_confirm' => 'required|min:6',
+            'g-recaptcha-response' => 'required|captcha',
         ]);
         $user =  User::create([
             'name' => $request->name,
@@ -146,16 +147,26 @@ class AuthController extends Controller
         return view('login');
     }
     public function login(Request $request)
-    {
-        $credentials = $request->validate([
+    { 
+        $validated = $request->validate([
             'email' => ['required', 'email'],
             'password' => ['required'],
+            'g-recaptcha-response' => 'required|captcha'
+        ]);
+        $credentials = $request->validate([
+            'email' => ['required', 'email'],
+            'password' => ['required']
         ]);
 
         if (Auth::attempt($credentials)) {
             $request->session()->regenerate();
 
-            return redirect()->intended('/');
+            if(Auth::user()->role->role_name='admin'){
+                return redirect()->intended(route('dashboard'));
+            }
+            else{
+                return redirect()->intended('/');
+            }
         }
 
         return back()->withErrors([

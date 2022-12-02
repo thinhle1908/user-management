@@ -3,13 +3,22 @@
         'name' => 'laravel/laravel',
         'pretty_version' => 'dev-master',
         'version' => 'dev-master',
-        'reference' => '4d856d0ded1aeae3e804380ddac1e8d1afbfeb7f',
+        'reference' => '3c7f2bc918fcff21cd1a46d99d8de66f0e2a9223',
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
         'dev' => true,
     ),
     'versions' => array(
+        'anhskohbo/no-captcha' => array(
+            'pretty_version' => '3.4.0',
+            'version' => '3.4.0.0',
+            'reference' => 'e12233006da3063f5cf4ce959cae05a6676faedd',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../anhskohbo/no-captcha',
+            'aliases' => array(),
+            'dev_requirement' => false,
+        ),
         'brick/math' => array(
             'pretty_version' => '0.10.2',
             'version' => '0.10.2.0',
@@ -367,7 +376,7 @@
         'laravel/laravel' => array(
             'pretty_version' => 'dev-master',
             'version' => 'dev-master',
-            'reference' => '4d856d0ded1aeae3e804380ddac1e8d1afbfeb7f',
+            'reference' => '3c7f2bc918fcff21cd1a46d99d8de66f0e2a9223',
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),

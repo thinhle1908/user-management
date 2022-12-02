@@ -68,6 +68,10 @@
                                                     Me</label>
                                             </div>
                                         </div>
+                                        <div class="form-group mt-5">
+                                            {!! NoCaptcha::renderJs() !!}
+                                            {!! NoCaptcha::display() !!}
+                                        </div>
                                         <button type="submit" class="btn btn-primary btn-user btn-block">
                                             Login
                                         </button>
