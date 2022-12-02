@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use App\Http\Middleware\RedirectIfAuthenticated;
-use App\Models\CrudHistory;
 use App\Models\User;
 use App\Models\User_Profile;
 use Illuminate\Http\Request;
@@ -88,12 +87,6 @@ class UserController extends Controller
             'updated_user_id' => auth()->user()->id
         ]);
 
-        CrudHistory::create([
-            'user_id' => $id,
-            'action' => 'update',
-            'created_by_user' => $user->created_user_id,
-            'updated_by_user' => auth()->user()->id
-        ]);
         return redirect(route('alluser'));
     }
     //
