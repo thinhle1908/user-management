@@ -41,6 +41,8 @@ Route::middleware(['checkuserlogin'])->group(function () {
     });
     Route::get('/profile', [UserController::class, 'getProfile'])->name('home');
     Route::post('/profile', [UserController::class, 'saveProfile'])->name('saveProfile');
+    Route::get('/change-password', [UserController::class, 'getChangePassWord'])->name('getChangePassWord');
+    Route::post('/change-password', [UserController::class, 'postChangePassWord'])->name('postChangePassWord');
 });
 //Admin after login
 

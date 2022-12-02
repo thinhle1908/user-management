@@ -188,4 +188,8 @@ class UserController extends Controller
         }
         return redirect()->back()->withSuccess('Profile saved successfully');
     }
+    public function getChangePassWord()
+    {
+        return view('changePassword');
+    }
 }
