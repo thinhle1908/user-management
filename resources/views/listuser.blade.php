@@ -323,7 +323,7 @@
                                             <th>Name</th>
                                             <th>Email</th>
                                             <th>Social</th>
-                                            <th>Permission</th>
+                                            <th>Role</th>
                                             <th>Last Login</th>
                                             <th>Confirm email address</th>
                                             <th>Banned</th>
@@ -335,7 +335,7 @@
                                             <th>Name</th>
                                             <th>Email</th>
                                             <th>Social</th>
-                                            <th>Permission</th>
+                                            <th>Role</th>
                                             <th>Last Login</th>
                                             <th>Confirm email address</th>
                                             <th>Banned</th>
@@ -348,7 +348,7 @@
                                             <td>{{$user->name}}</td>
                                             <td>{{$user->email}}</td>
                                             <td>{{$user->social}}</td>
-                                            <td>{{$user->permission}}</td>
+                                            <td>{{$user->role->role_name}}</td>
                                             <td>{{$user->last_login}}</td>
                                             <td>{{$user->email_verify}}</td>
                                             <td>{{$user->banned}}</td>
