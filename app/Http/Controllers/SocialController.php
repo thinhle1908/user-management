@@ -12,7 +12,7 @@ class SocialController extends Controller
 {
     public function getInfo($social)
     {
-        if ($social == "google" || $social == "github" || $social == "facebook") {
+        if ($social == "google" || $social == "github" || $social == "facebook" || $social =="linkedin") {
             return Socialite::driver($social)->redirect();
         } else {
             return response()->json([
