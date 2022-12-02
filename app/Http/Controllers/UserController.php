@@ -26,7 +26,7 @@ class UserController extends Controller
                 $users = User::orderBy('name')->paginate(10);
             }
             else{
-                $users = User::orderBy('name','desc')->paginate(10);
+                $users = User::orderByDesc('name')->paginate(10);
             }
            
         }
