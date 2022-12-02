@@ -72,6 +72,9 @@
                 <li class="nav-item active">
                     <a class="nav-link" href="/change-password">Change Password <span class="sr-only">(current)</span></a>
                 </li>
+                <li class="nav-item active">
+                    <a class="nav-link" href="/send-code-verify-email">Verify email account<span class="sr-only">(current)</span></a>
+                </li>
                 <li class="nav-item">
                     <a class="nav-link" href="/logout">Logout</a>
                 </li>

@@ -31,7 +31,8 @@ Route::middleware(['checklogin'])->group(function () {
     Route::post('/register', [AuthController::class, 'register'])->name('register.post');
 
     Route::get('/checkInfo/{social}', [SocialController::class, 'checkInfo']);
-    Route::get('/send-code-verify-email', [SendMailController::class, 'sendCodeVerifyEmail']);
+
+    
 });
 
 //User after Login
@@ -43,6 +44,9 @@ Route::middleware(['checkuserlogin'])->group(function () {
     Route::post('/profile', [UserController::class, 'saveProfile'])->name('saveProfile');
     Route::get('/change-password', [UserController::class, 'getChangePassWord'])->name('getChangePassWord');
     Route::post('/change-password', [UserController::class, 'postChangePassWord'])->name('postChangePassWord');
+    Route::get('/send-code-verify-email', [SendMailController::class, 'getsendCodeVerifyEmail'])->name('sendVerifyEmail.get');
+    Route::post('/send-code-verify-email', [SendMailController::class, 'postsendCodeVerifyEmail']);
+    Route::get('/send-code-verify-email/{token}', [SendMailController::class, 'verifyEmail']);
 });
 //Admin after login
 

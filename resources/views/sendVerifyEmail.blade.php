@@ -92,7 +92,8 @@
     </nav>
     <div class="container d-flex justify-content-center align-items-center vh-100">
         <div class="bg-white text-center p-5 mt-3 center">
-            <h3>Change Password </h3>
+            @if(auth()->user()->email_verify==0)
+            <h3>Verify Email </h3>
             @if(Session::has('success'))
             <div class="alert alert-success">
                 {{Session::get('success')}}
@@ -111,15 +112,27 @@
             <form class="pb-3" method="POST">
                 @csrf
                 <div class="form-group">
-                    <input type="password" class="form-control" placeholder="Old Password" name="old_password">
-                    <br>
-                    <input type="password" class="form-control" placeholder="Password" name="password">
-                    <br>
-                    <input type="password" class="form-control" placeholder="Confirm Password" name="confirm_password">
                 </div>
-                <button type="submit" class="btn">Change Password</button>
+                <button type="submit" class="btn">Send Mail</button>
             </form>
-
+            @else
+            <h3>Email Confirmed </h3>
+            @if(Session::has('success'))
+            <div class="alert alert-success">
+                {{Session::get('success')}}
+            </div>
+            @endif
+            @if ($errors->any())
+            <div class="alert alert-danger">
+                <ul>
+                    @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+            @endif
+            <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit.</p>
+            @endif
         </div>
     </div>
 </body>
