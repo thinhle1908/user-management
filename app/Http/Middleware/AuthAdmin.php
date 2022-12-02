@@ -24,7 +24,7 @@ class AuthAdmin
                 return redirect(route('home'));
             }
         } else {
-            return redirect(route('admin.login.get'));
+            return redirect(route('login.get'));
         }
     }
 }

@@ -51,11 +51,6 @@ class UserController extends Controller
         //Check admin
 
         $user = User::find($id)->delete();
-        if (!$user) {
-            return response()->json([
-                'message' => 'User does not exist'
-            ]);
-        }
 
         return redirect(route('alluser'));
     }
