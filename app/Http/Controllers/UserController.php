@@ -18,6 +18,9 @@ class UserController extends Controller
     public function getAllUser(Request $request)
     {
         $users = User::paginate(10);
+        if($request->keyword){
+            $users = User::where('name','like',$request->keyword)->paginate(10);
+        }
         return view('listuser')->with('users', $users);
     }
     //
