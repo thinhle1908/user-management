@@ -42,8 +42,22 @@
                     <div class="card">
                         <div class="card-header">Add User</div>
                         <div class="card-body">
+                            @if(Session::has('success'))
+                            <div class="alert alert-success">
+                                {{Session::get('success')}}
+                            </div>
+                            @endif
+                            @if ($errors->any())
+                            <div class="alert alert-danger">
+                                <ul>
+                                    @foreach ($errors->all() as $error)
+                                    <li>{{ $error }}</li>
+                                    @endforeach
+                                </ul>
+                            </div>
+                            @endif
                             <form name="my-form" onsubmit="return validform()" action="/admin/add-user" method="POST">
-                            @csrf
+                                @csrf
                                 <div class="form-group row">
                                     <label for="full_name" class="col-md-4 col-form-label text-md-right">Name</label>
                                     <div class="col-md-6">
@@ -58,20 +72,14 @@
                                     </div>
                                 </div>
 
-                                <div class="form-group row">
-                                    <label for="user_name" class="col-md-4 col-form-label text-md-right">Password</label>
-                                    <div class="col-md-6">
-                                        <input type="password" id="user_name" class="form-control" name="password">
-                                    </div>
-                                </div>
 
                                 <div class="form-group row">
-                                    <label for="phone_number" class="col-md-4 col-form-label text-md-right">Permission</label>
+                                    <label for="phone_number" class="col-md-4 col-form-label text-md-right">Role</label>
                                     <div class="col-md-6">
-                                      <select name="role" >
-                                        <option value="1">Admin</option>
-                                        <option value="2">User</option>
-                                      </select>
+                                        <select name="role">
+                                            <option value="1">Admin</option>
+                                            <option value="2">User</option>
+                                        </select>
                                     </div>
                                 </div>
                                 <div class="col-md-6 offset-md-4">
