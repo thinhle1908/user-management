@@ -50,7 +50,7 @@ class UserController extends Controller
     {
         //Check admin
 
-        $user = User::find($id)->delete();
+        $user = User::find($id)->delete()->withSuccess('Delete User Successfully');
 
         return redirect(route('alluser'));
     }
