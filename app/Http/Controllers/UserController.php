@@ -11,6 +11,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Redis;
 
 class UserController extends Controller
@@ -191,5 +192,21 @@ class UserController extends Controller
     public function getChangePassWord()
     {
         return view('changePassword');
+    }
+    public function postChangePassWord(Request $request)
+    {
+        $validated = $request->validate([
+            'old_password' => 'required|min:6',
+            'password' => 'required|same:confirm_password|min:6',
+            'confirm_password'=>'required|min:6'
+        ]);
+        if (!Hash::check($request->old_password,Auth::user()->password , [])){
+            return Redirect::back()->withErrors(['msg' => 'Old password is incorrect']);
+        }
+        $user = User::find(Auth::user()->id);
+        $user->update([
+            'password'=>Hash::make($request->password)
+        ]);
+        return redirect()->back()->withSuccess('Change password successfully');
     }
 }
