@@ -67,7 +67,7 @@
                                     <label for="phone_number" class="col-md-4 col-form-label text-md-right" >Permission</label>
                                     <div class="col-md-6">
                                       <select name="permission" >
-                                        @if($user->permission=='admin')
+                                        @if($user->role->role_name=='admin')
                                         <option value="admin" selected>Admin</option>
                                         <option value="user">User</option>
                                         @else
@@ -79,7 +79,7 @@
                                 </div>
                                 <div class="col-md-6 offset-md-4">
                                     <button type="submit" class="btn btn-primary">
-                                        Add
+                                        Edit
                                     </button>
                                 </div>
                         </div>
