@@ -83,7 +83,7 @@ class UserController extends Controller
             'updated_user_id' => auth()->user()->id
         ]);
 
-        return redirect(route('alluser'));
+        return redirect(route('alluser'))->withSuccess('Delete User Successfully');
     }
     //
     public function searchUser(Request $request)
