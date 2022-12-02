@@ -157,9 +157,14 @@ class AuthController extends Controller
             'email' => ['required', 'email'],
             'password' => ['required']
         ]);
-
+        
         if (Auth::attempt($credentials)) {
             $request->session()->regenerate();
+
+            if(Auth::user()->banned==1){
+                Auth::logout();
+                return redirect(route('login.get'))->withErrors('msg','User has been blocked');
+            }
 
             if(Auth::user()->role->role_name='admin'){
                 return redirect()->intended(route('dashboard'));
