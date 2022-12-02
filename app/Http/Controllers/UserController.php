@@ -21,6 +21,15 @@ class UserController extends Controller
         if($request->keyword){
             $users = User::where('name','like',$request->keyword.'%')->paginate(10);
         }
+        if($request->sort_by){
+            if($request->sort_by=1){
+                $users = User::orderBy('name')->paginate(10);
+            }
+            else{
+                $users = User::orderBy('name','desc')->paginate(10);
+            }
+           
+        }
         return view('listuser')->with('users', $users);
     }
     //

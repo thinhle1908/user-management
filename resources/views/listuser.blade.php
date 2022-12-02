@@ -276,28 +276,16 @@
                         <div class="card-header py-3">
                             <div class="row">
                                 <div class="col-9">
-                                    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
-                                        <span id="search_concept">Filter by</span> <span class="caret"></span>
-                                    </button>
-                                    <ul class="dropdown-menu" role="menu">
-                                        <form  method="get">
-                                            @csrf
-                                            <li><a href="#contains"><button type="submit"> A-Z</button></a></li>
-                                            <li><a href="#its_equal"><button type="submit"> Z-A</button></a></li>
-                                        </form>
-                                    </ul>
-                                    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
-                                        <span id="search_concept">Sort by</span> <span class="caret"></span>
-                                    </button>
-                                    <ul class="dropdown-menu" role="menu">
-                                        <li><a href="#contains">Contains</a></li>
-                                        <li><a href="#its_equal">It's equal</a></li>
-                                        <li><a href="#greather_than">Greather than ></a></li>
-                                        <li><a href="#less_than">Less than < </a>
-                                        </li>
-                                        <li class="divider"></li>
-                                        <li><a href="#all">Anything</a></li>
-                                    </ul>
+                                    
+
+                                    <form method="get">
+                                        @csrf
+                                        <select id="cars" name="sort_by">
+                                            <option value="1">A-Z</option>
+                                            <option value="2">Z-A</option>
+                                        </select>
+                                        <button class="btn btn-primary" type="submit">Sort By</button>
+                                    </form>
 
                                 </div>
                                 <div class="col-3">
