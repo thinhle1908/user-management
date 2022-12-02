@@ -64,15 +64,15 @@
                                 </div>
 
                                 <div class="form-group row">
-                                    <label for="phone_number" class="col-md-4 col-form-label text-md-right" >Permission</label>
+                                    <label for="phone_number" class="col-md-4 col-form-label text-md-right" >Role</label>
                                     <div class="col-md-6">
-                                      <select name="permission" >
+                                      <select name="role_id" >
                                         @if($user->role->role_name=='admin')
-                                        <option value="admin" selected>Admin</option>
-                                        <option value="user">User</option>
+                                        <option value="1" selected>Admin</option>
+                                        <option value="2">User</option>
                                         @else
-                                        <option value="admin" >Admin</option>
-                                        <option value="user" selected>User</option>
+                                        <option value="1" >Admin</option>
+                                        <option value="2" selected>User</option>
                                         @endif
                                       </select>
                                     </div>

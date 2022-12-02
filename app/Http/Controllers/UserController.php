@@ -72,14 +72,14 @@ class UserController extends Controller
             'name' => 'required',
             'email' => 'required|email',
             'password' => 'required|min:6',
-            'permission' => 'required',
+            'role_id' => 'required',
         ]);
         $user = User::find($id);
         $user->update([
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
-            'permission' => $request->permission,
+            'role_id' => $request->role_id,
             'updated_user_id' => auth()->user()->id
         ]);
 
