@@ -276,7 +276,7 @@
                         <div class="card-header py-3">
                             <div class="row">
                                 <div class="col-9">
-                                    
+
 
                                     <form method="get">
                                         @csrf
@@ -324,6 +324,7 @@
                                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                                     <thead>
                                         <tr>
+                                            <th>ID</th>
                                             <th>Name</th>
                                             <th>Email</th>
                                             <th>Social</th>
@@ -336,6 +337,7 @@
                                     </thead>
                                     <tfoot>
                                         <tr>
+                                            <th>ID</th>
                                             <th>Name</th>
                                             <th>Email</th>
                                             <th>Social</th>
@@ -349,6 +351,7 @@
                                     <tbody>
                                         @foreach($users as $user)
                                         <tr>
+                                            <td>{{$user->id}}</td>
                                             <td>{{$user->name}}</td>
                                             <td>{{$user->email}}</td>
                                             <td>{{$user->social}}</td>

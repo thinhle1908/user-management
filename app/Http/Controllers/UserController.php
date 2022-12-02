@@ -22,11 +22,11 @@ class UserController extends Controller
             $users = User::where('name','like',$request->keyword.'%')->paginate(10);
         }
         if($request->sort_by){
-            if($request->sort_by=1){
-                $users = User::orderBy('name')->paginate(10);
+            if($request->sort_by==1){
+                $users = User::orderBy('id')->paginate(10);
             }
             else{
-                $users = User::orderByDesc('name')->paginate(10);
+                $users = User::orderBy('id','desc')->paginate(10);
             }
            
         }
