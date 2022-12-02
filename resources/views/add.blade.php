@@ -68,9 +68,9 @@
                                 <div class="form-group row">
                                     <label for="phone_number" class="col-md-4 col-form-label text-md-right">Permission</label>
                                     <div class="col-md-6">
-                                      <select name="permission" >
-                                        <option value="admin">Admin</option>
-                                        <option value="user">User</option>
+                                      <select name="role" >
+                                        <option value="1">Admin</option>
+                                        <option value="2">User</option>
                                       </select>
                                     </div>
                                 </div>
