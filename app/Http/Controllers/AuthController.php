@@ -6,6 +6,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Validator as FacadesValidator;
 
 class AuthController extends Controller
@@ -163,7 +164,7 @@ class AuthController extends Controller
 
             if(Auth::user()->banned==1){
                 Auth::logout();
-                return redirect(route('login.get'))->withErrors('msg','User has been blocked');
+                return Redirect::back()->withErrors(['msg' => 'User has been blocked']);
             }
 
             if(Auth::user()->role->role_name='admin'){
