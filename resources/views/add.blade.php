@@ -72,6 +72,12 @@
                                     </div>
                                 </div>
 
+                                <div class="form-group row">
+                                    <label for="user_name" class="col-md-4 col-form-label text-md-right">Password</label>
+                                    <div class="col-md-6">
+                                        <input type="password" id="user_name" class="form-control" name="password">
+                                    </div>
+                                </div>
 
                                 <div class="form-group row">
                                     <label for="phone_number" class="col-md-4 col-form-label text-md-right">Role</label>
