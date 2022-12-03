@@ -270,7 +270,7 @@
 
                     <!-- Page Heading -->
                     <h1 class="h3 mb-2 text-gray-800">List User</h1>
-
+                    <a href="export-excel"><button class="btn btn-success"> Export Excel</button></a>
                     <!-- DataTales Example -->
                     <div class="card shadow mb-4">
                         <div class="card-header py-3">

@@ -68,4 +68,5 @@ Route::prefix('admin')->middleware(['auth.admin'])->group(function () {
     Route::post('/edit-user/{id}', [UserController::class, 'updateUser']);
     Route::get('/send-mail/{id}', [UserController::class, 'getSendMail']);
     Route::post('/send-mail/{id}', [UserController::class, 'postSendMail']);
+    Route::get('/export-excel', [UserController::class, 'exportExcel']);
 });

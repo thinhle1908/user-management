@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\UsersExport;
 use App\Http\Controllers\Controller;
 use App\Http\Middleware\RedirectIfAuthenticated;
 use App\Mail\SendMail;
@@ -14,6 +15,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Redis;
+use Maatwebsite\Excel\Facades\Excel;
 
 class UserController extends Controller
 {
@@ -240,5 +242,10 @@ class UserController extends Controller
         }
         return redirect(route('alluser'))->withSuccess('Email sent successfully');
        
+    }
+    public function exportExcel()
+    {
+        return Excel::download(new UsersExport, 'users.xlsx');
+
     }
 }
