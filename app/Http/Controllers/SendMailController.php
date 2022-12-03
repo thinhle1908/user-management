@@ -167,4 +167,42 @@ class SendMailController extends Controller
             'message'=>'successfully'
         ]);
     }
+    public function getForgotPassword()
+    {
+        
+        return view('forgotPassword');
+    }
+    public function postForgotPassword(Request $request)
+    {
+        $validated = $request->validate([
+            'email' => 'required|email',
+        ]);
+
+        $user = User::where('email', $request->email)->first();
+
+        if (!$user) {
+            return redirect()->back()->withErrors([
+                'message' => 'Email does not exist'
+            ]);
+        }
+
+        $resetPassword = ResetPassWord::create([
+            'email' => $request->email,
+            'token' => rand(123456, 999999),
+            'expire_at' => Carbon::now()->addMinutes(10),
+            'created_at' => date('Y-m-d H:i:s')
+        ]);
+
+        $token = $resetPassword->token;
+
+        $mailable = new SendOtpEmail($token);
+
+        //Send Mail
+        try {
+            Mail::to($request->email)->send($mailable);
+            return redirect()->back()->withSuccess('Send otp code successfully');
+        } catch (\Exception $th) {
+            return redirect()->back()->withErrors(['Failed to send otp code']);
+        }
+    }
 }
