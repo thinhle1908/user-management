@@ -359,7 +359,7 @@
                                             <td>{{$user->last_login}}</td>
                                             <td>{{$user->email_verify}}</td>
                                             <td>{{$user->banned}}</td>
-                                            <td><a href="/admin/edit-user/{{$user->id}}"><button type="button" class="btn btn-primary">Edit</button></a> <a href="/admin/unblock-user/{{$user->id}}"><button type="button" class="btn btn-success">Unblock</button><a> <a href="/admin/block-user/{{$user->id}}"><button type="button" class="btn btn-warning">Block</button></a>
+                                            <td><a href="/admin/send-mail/{{$user->id}}"><button type="button" class="btn btn-info">Send Mail</button></a> <a href="/admin/edit-user/{{$user->id}}"><button type="button" class="btn btn-primary">Edit</button></a> <a href="/admin/unblock-user/{{$user->id}}"><button type="button" class="btn btn-success">Unblock</button><a> <a href="/admin/block-user/{{$user->id}}"><button type="button" class="btn btn-warning">Block</button></a>
                                                         <a href="/admin/delete-user/{{$user->id}}"><button type="button" class="btn btn-danger">Delete</button></a> </td>
 
                                         </tr>

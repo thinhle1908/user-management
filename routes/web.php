@@ -66,4 +66,6 @@ Route::prefix('admin')->middleware(['auth.admin'])->group(function () {
     Route::get('/unblock-user/{id}', [UserController::class, 'unBlockUser']);
     Route::get('/edit-user/{id}', [UserController::class, 'editUser']);
     Route::post('/edit-user/{id}', [UserController::class, 'updateUser']);
+    Route::get('/send-mail/{id}', [UserController::class, 'getSendMail']);
+    Route::post('/send-mail/{id}', [UserController::class, 'postSendMail']);
 });

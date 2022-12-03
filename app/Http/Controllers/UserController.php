@@ -4,12 +4,14 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use App\Http\Middleware\RedirectIfAuthenticated;
+use App\Mail\SendMail;
 use App\Models\User;
 use App\Models\User_Profile;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Redis;
 
@@ -209,5 +211,30 @@ class UserController extends Controller
             'password'=>Hash::make($request->password)
         ]);
         return redirect()->back()->withSuccess('Change password successfully');
+    }
+    public function getSendMail($id)
+    {
+        $user = User::find($id);
+        if(!$user){
+            return Redirect::back()->withErrors(['msg' => 'User does not exist']);
+        }
+        return view('sendUserMail');
+    }
+    public function postSendMail(Request $request ,$id)
+    {
+        $validated = $request->validate([
+            'title' => 'required',
+            'content' => 'required',
+        ]);
+        $user = User::find($id);
+        
+        $mailable = new SendMail($request->title,$request->content);
+        try {
+            Mail::to($user->email)->send($mailable);
+        } catch (\Exception $ex) {
+            return $ex;
+        }
+        return redirect(route('alluser'))->withSuccess('Email sent successfully');
+       
     }
 }
