@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
+use App\Mail\ForgotPassword;
 use App\Mail\SendOtpEmail;
 use App\Models\ResetPassWord;
 use App\Models\User;
@@ -18,31 +19,43 @@ use Illuminate\Support\Str;
 
 class SendMailController extends Controller
 {
-    public function resetPassword(Request $request)
+    public function postResetPassword(Request $request, $token)
     {
-        //Valitdate
         $validated = $request->validate([
-            'token' => 'required',
-            'email' => 'required|email',
-            'password' => 'required|min:6|same:password_confirm',
-            'password_confirm' => 'required|min:6',
+            'password' => 'required|same:confirm_password|min:6',
+            'confirm_password' => 'required|min:6'
         ]);
-        $resetPassword = ResetPassWord::where('email', $request->email)->latest()->first();
+        $resetPassword = ResetPassWord::where('token', $token)->latest()->first();
 
         $now = Carbon::now();
 
-        if (!$resetPassword || $resetPassword->token != $request->token || $now->isAfter(($resetPassword->expire_at))) {
-            return response()->json([
+        if (!$token || $resetPassword->token != $token || $now->isAfter(($resetPassword->expire_at))) {
+            return redirect(route('get.forgotpassword'))->withErrors([
                 'message' => 'Email or password is incorrect, expired'
             ]);
         }
-        $user = User::where('email', $request->email)->first();
+        $user = User::where('email', $resetPassword->email);
 
-        $user->update(['password' => Hash::make($request->password)]);
+        $user->update([
+            'password' => Hash::make($request->password),
+        ]);
 
-        return response()->json([
-            'message' => 'Change password successfully'
-        ], 200);
+        return redirect(route('login.get'))->withSuccess(
+            'Email or password is incorrect, expired'
+        );
+    }
+    public function resetPassword($token)
+    {
+        $resetPassword = ResetPassWord::where('token', $token)->latest()->first();
+
+        $now = Carbon::now();
+
+        if (!$token || $resetPassword->token != $token || $now->isAfter(($resetPassword->expire_at))) {
+            return redirect(route('get.forgotpassword'))->withErrors([
+                'message' => 'Email or password is incorrect, expired'
+            ]);
+        }
+        return view('resetPassword');
     }
     public function sendTokenResetPassword(Request $request)
     {
@@ -81,7 +94,7 @@ class SendMailController extends Controller
             'message' => 'Check your email'
         ]);
     }
-    public function verifyEmail(Request $request,$token)
+    public function verifyEmail(Request $request, $token)
     {
         //Check email already exists verify
         $user = User::where('id', Auth()->user()->id)->first();
@@ -89,13 +102,14 @@ class SendMailController extends Controller
         $now = Carbon::now();
 
         $verificationCode = Verification::where('user_id', Auth()->user()->id)->latest()->first();
-        if ( $now->isAfter(($verificationCode->expire_at))) {
+        if ($now->isAfter(($verificationCode->expire_at))) {
             return redirect(route('sendVerifyEmail.get'))->withErrors(
-                'message', 'Incorrect otp code'
+                'message',
+                'Incorrect otp code'
             );
         }
-       
-        if($verificationCode->token==$token);
+
+        if ($verificationCode->token == $token);
         $user->update([
             'email_verify' => 1
         ]);
@@ -103,7 +117,7 @@ class SendMailController extends Controller
     }
     public function getsendCodeVerifyEmail()
     {
-       return view('sendVerifyEmail');
+        return view('sendVerifyEmail');
     }
     public function postsendCodeVerifyEmail()
     {
@@ -142,7 +156,7 @@ class SendMailController extends Controller
 
     public function sendMail(Request $request)
     {
-       
+
         if (!Gate::allows('admin-only', auth()->user())) {
             return response()->json([
                 'message' => 'You must be admin'
@@ -150,11 +164,11 @@ class SendMailController extends Controller
         }
 
         $validated = $request->validate([
-            'email'=>'required|email',
+            'email' => 'required|email',
             'content' => 'required'
         ]);
         $data = $request->content;
-       
+
         $mailable = new SendOtpEmail($data);
         try {
             Mail::to($request->email)->send($mailable);
@@ -164,12 +178,12 @@ class SendMailController extends Controller
         }
 
         return response()->json([
-            'message'=>'successfully'
+            'message' => 'successfully'
         ]);
     }
     public function getForgotPassword()
     {
-        
+
         return view('forgotPassword');
     }
     public function postForgotPassword(Request $request)
@@ -188,14 +202,14 @@ class SendMailController extends Controller
 
         $resetPassword = ResetPassWord::create([
             'email' => $request->email,
-            'token' => rand(123456, 999999),
+            'token' => Str::random(10),
             'expire_at' => Carbon::now()->addMinutes(10),
             'created_at' => date('Y-m-d H:i:s')
         ]);
 
         $token = $resetPassword->token;
 
-        $mailable = new SendOtpEmail($token);
+        $mailable = new ForgotPassword($token);
 
         //Send Mail
         try {

@@ -13,14 +13,16 @@ class ForgotPassword extends Mailable
 {
     use Queueable, SerializesModels;
 
+    private $data;
+    
     /**
      * Create a new message instance.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct($data)
     {
-        //
+        $this->data = $data;
     }
 
     /**
@@ -42,8 +44,9 @@ class ForgotPassword extends Mailable
      */
     public function content()
     {
-        return new Content(
-            view: 'view.name',
+        return new Content( 
+            view: 'mail.reset_password',
+            with: ['data' => $this->data]
         );
     }
 

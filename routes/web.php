@@ -32,8 +32,10 @@ Route::middleware(['checklogin'])->group(function () {
 
     Route::get('/checkInfo/{social}', [SocialController::class, 'checkInfo']);
 
-    Route::get('/forgot-password', [SendMailController::class, 'getForgotPassword']);
+    Route::get('/forgot-password', [SendMailController::class, 'getForgotPassword'])->name('get.forgotpassword');
     Route::post('/forgot-password', [SendMailController::class, 'postForgotPassword']);
+    Route::get('/reset-password/{token}', [SendMailController::class, 'resetPassword']);
+    Route::post('/reset-password/{token}', [SendMailController::class, 'postResetPassword']);
 });
 
 //User after Login
@@ -47,8 +49,8 @@ Route::middleware(['checkuserlogin'])->group(function () {
     Route::post('/change-password', [UserController::class, 'postChangePassWord'])->name('postChangePassWord');
     Route::get('/send-code-verify-email', [SendMailController::class, 'getsendCodeVerifyEmail'])->name('sendVerifyEmail.get');
     Route::post('/send-code-verify-email', [SendMailController::class, 'postsendCodeVerifyEmail']);
-    Route::get('/send-code-verify-email/{token}', [SendMailController::class, 'verifyEmail']);
-    
+    Route::get('/send-code-verify-email/{token}', [SendMailController::class, 'resetPassword']);
+    Route::post('/send-code-verify-email/{token}', [SendMailController::class, 'postResetPassword']);
 });
 //Admin after login
 
