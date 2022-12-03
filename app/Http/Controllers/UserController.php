@@ -20,6 +20,10 @@ class UserController extends Controller
     public function getAllUser(Request $request)
     {
         $users = User::paginate(10);
+
+        if($request->role){
+            $users = User::where('role_id',$request->role)->where('banned',$request->banned)->where('email_verify',$request->email_verify)->paginate(10);
+        }
         if($request->keyword){
             $users = User::where('name','like',$request->keyword.'%')->paginate(10);
         }

@@ -275,7 +275,7 @@
                     <div class="card shadow mb-4">
                         <div class="card-header py-3">
                             <div class="row">
-                                <div class="col-9">
+                                <div class="col-3">
 
 
                                     <form method="get">
@@ -285,6 +285,30 @@
                                             <option value="2">Z-A</option>
                                         </select>
                                         <button class="btn btn-primary" type="submit">Sort By</button>
+                                    </form>
+
+                                </div>
+                                <div class="col-6">
+
+
+                                    <form method="get">
+                                        @csrf
+                                        <label for="">Role</label>
+                                        <select class="form-select" aria-label="Default select example" name="role">
+                                            <option value="1">Admin</option>
+                                            <option value="2">User</option>
+                                        </select>
+                                        <label for="">Banned</label>
+                                        <select class="form-select" aria-label="Default select example" name="banned">
+                                            <option value="1">Yes</option>
+                                            <option value="0">No</option>
+                                        </select>
+                                        <label for="">Verify Email</label>
+                                        <select class="form-select" aria-label="Default select example" name="email_verify">
+                                            <option value="1">Yes</option>
+                                            <option value="0">No</option>
+                                        </select>
+                                        <button class="btn btn-info" type="submit">Fillter</button>
                                     </form>
 
                                 </div>
@@ -301,6 +325,7 @@
                                         </div>
                                     </form>
                                 </div>
+
                             </div>
 
                         </div>
@@ -357,8 +382,8 @@
                                             <td>{{$user->social}}</td>
                                             <td>{{$user->role->role_name}}</td>
                                             <td>{{$user->last_login}}</td>
-                                            <td>{{$user->email_verify}}</td>
-                                            <td>{{$user->banned}}</td>
+                                            @if($user->email_verify==1)<td>Yes</td>@else <td>No</td>@endif
+                                            @if($user->banned==1)<td>Yes</td>@else <td>No</td>@endif
                                             <td><a href="/admin/send-mail/{{$user->id}}"><button type="button" class="btn btn-info">Send Mail</button></a> <a href="/admin/edit-user/{{$user->id}}"><button type="button" class="btn btn-primary">Edit</button></a> <a href="/admin/unblock-user/{{$user->id}}"><button type="button" class="btn btn-success">Unblock</button><a> <a href="/admin/block-user/{{$user->id}}"><button type="button" class="btn btn-warning">Block</button></a>
                                                         <a href="/admin/delete-user/{{$user->id}}"><button type="button" class="btn btn-danger">Delete</button></a> </td>
 
